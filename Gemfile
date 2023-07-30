@@ -55,3 +55,4 @@ end
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'bcrypt', '~> 3.1.16'
+gem 'railties'
