@@ -4,7 +4,7 @@ class CreateDesigners < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :email
       t.string :password_digest
-     
+      t.string :status 
       t.timestamps
     end
   end
