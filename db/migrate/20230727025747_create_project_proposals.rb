@@ -4,7 +4,7 @@ class CreateProjectProposals < ActiveRecord::Migration[6.1]
       t.string :title
       t.text :description
       t.belongs_to :designer, foreign_key: true
-   
+
       t.timestamps
     end
   end

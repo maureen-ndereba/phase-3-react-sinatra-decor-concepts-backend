@@ -54,3 +54,4 @@ end
 #Gem to handle image processing
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'bcrypt', '~> 3.1.16'
