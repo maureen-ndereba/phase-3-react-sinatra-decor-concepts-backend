@@ -6,17 +6,20 @@ designers_data = [
     {
       name: 'Lakisha Njoki',
       email: 'lakisha@example.com',
-      password: 'password123'
+      password: 'password123',
+      status: 'active'
     },
     {
       name: 'Samuel Owiro',
       email: 'samuel@example.com',
-      password: 'password1011'
+      password: 'password1011',
+      status: 'active'
     },
     {
       name: 'Jeffrey Fauzia',
       email: 'jeffrey@example.com',
-      password: 'password1213'
+      password: 'password1213',
+      status: 'active'
     }
   ]
 
@@ -24,8 +27,10 @@ designers_data = [
 designers_json = JSON.generate(designers_data)
 puts designers_json
 
-# Parse designers_json back to a Ruby hash
-designers_hash = JSON.parse(designers_json)
+designers_data.each do |designer_attributes|
+  designer = Designer.new(designer_attributes)
+  designer.save
+end
 
 # Seed data for project proposals
 project_proposals_data = [
@@ -88,52 +93,77 @@ project_proposals_data = [
         'Boat Cleats (10 pcs)',
         'Captain\'s Wheel (1 pc)'
       ]
+    },
+    {
+      designer_id: 3,
+      title: 'Boat House',
+      description: 'A house inspired by boats and waterfront living.',
+      time_estimate: '35 days',
+      material_list: [
+        'Wooden Planks (100 pcs)',
+        'Nautical Rope (50 mtrs)',
+        'Anchor (1 pc)',
+        'Porthole Windows (10 pcs)',
+        'Marine Varnish (5 ltrs)',
+        'Boat Cleats (10 pcs)',
+        'Captain\'s Wheel (1 pc)'
+      ]
     }
   ]
+
 
 # Convert project_proposals_data to JSON and store it as a string
 project_proposals_json = JSON.generate(project_proposals_data)
 puts project_proposals_json
 
-# Parse project_proposals_json back to a Ruby hash
-project_proposals_hash = JSON.parse(project_proposals_json)
+# Seed project proposals
+project_proposals_data.each do |proposal_data|
+  designer_id = proposal_data[:designer_id]
+  proposal_data.delete(:designer_id)
+
+  designer = Designer.find_by(id: designer_id)
+  next unless designer
+
+  proposal = designer.project_proposals.build(proposal_data)
+  proposal.save
+end
 
 # Seed data for notes
 notes_data = [
     {
       project_proposal_id: 1,
-      author: 'Samuel Owiro',
-      message: 'I love the concept of using shipping containers!'
+      message: 'I love the concept of using shipping containers!',
+      designer_id: 2
     },
     {
       project_proposal_id: 2,
-      author: 'Jeffrey Fauzia',
-      message: 'The pink color really stands out!'
+      message: 'The pink color really stands out!',
+      designer_id: 3
     },
     {
       project_proposal_id: 3,
-      author: 'Lakisha Njoki',
-      message: 'The black-on-black design is so elegant!'
+      message: 'The black-on-black design is so elegant!',
+      designer_id: 1
     },
     {
       project_proposal_id: 4,
-      author: 'Lakisha Njoki',
-      message: 'I like the large windows for natural light.'
+      message: 'I like the large windows for natural light.',
+      designer_id: 1
     },
     {
       project_proposal_id: 4,
-      author: 'Jeffrey Fauzia',
-      message: 'The waterfront location is perfect for this design.'
+      message: 'The waterfront location is perfect for this design.',
+      designer_id: 3
     },
     {
-      project_proposal_id: 5,
-      author: 'Samuel Owiro',
-      message: 'The use of space is well-planned.'
+      project_proposal_id: 3,
+      message: 'The use of space is well-planned.',
+      designer_id: 2
     },
     {
-      project_proposal_id: 6,
-      author: 'Lakisha Njoki',
-      message: 'I would suggest adding more greenery.'
+      project_proposal_id: 1,
+      message: 'I would suggest adding more greenery.',
+      designer_id: 1
     }
   ]
 
@@ -141,7 +171,11 @@ notes_data = [
 notes_json = JSON.generate(notes_data)
 puts notes_json
 
-# Parse notes_json back to a Ruby hash
-notes_hash = JSON.parse(notes_json)
+# Seed notes
+notes_data.each do |note_data|
+  project_proposal_id = note_data.delete(:project_proposal_id)
+  note = ProjectProposal.find(project_proposal_id).notes.build(note_data)
+  note.save
+end
 
 puts "✅ Done seeding!"
