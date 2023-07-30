@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_27_030254) do
+ActiveRecord::Schema.define(version: 2023_07_29_150611) do
 
   create_table "designers", force: :cascade do |t|
     t.string "name"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2023_07_27_030254) do
     t.bigint "project_proposal_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "author"
+    t.text "message"
     t.index ["designer_id"], name: "index_notes_on_designer_id"
     t.index ["project_proposal_id"], name: "index_notes_on_project_proposal_id"
   end
@@ -37,6 +39,8 @@ ActiveRecord::Schema.define(version: 2023_07_27_030254) do
     t.integer "designer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "time_estimate"
+    t.text "material_list"
     t.index ["designer_id"], name: "index_project_proposals_on_designer_id"
   end
 
