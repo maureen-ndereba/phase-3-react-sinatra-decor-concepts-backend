@@ -16,18 +16,17 @@ ActiveRecord::Schema.define(version: 2023_07_29_150611) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "avatar"
   end
 
   create_table "notes", force: :cascade do |t|
-    t.text "content"
     t.bigint "designer_id"
     t.bigint "project_proposal_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "author"
     t.text "message"
     t.index ["designer_id"], name: "index_notes_on_designer_id"
     t.index ["project_proposal_id"], name: "index_notes_on_project_proposal_id"
