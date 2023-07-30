@@ -6,4 +6,7 @@ class Designer < ActiveRecord::Base
   
     # Mount the AvatarUploader to the :avatar column
   mount_uploader :avatar, AvatarUploader
-  end
+    #Status; Active- works there currently, Pending- still hasn't been employed, Archived- no longer working there)
+  enum status: { active: 'active', pending: 'pending', archived: 'archived' }
+end
+  
