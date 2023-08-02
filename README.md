@@ -76,6 +76,9 @@ Contributions to this project are welcome! To contribute, please follow the stan
 4. Push the changes to your forked repository.
 5. Submit a pull request to the main repository.
 
+## Frontend link 
+https://github.com/maureen-ndereba/phase-3-react-sinatra-decor-conceots-frontend
+
 ## Contact Information
 If you have any questions or need support with the backend, feel free to contact the project maintainers:
 - Name: Maureen Ngugi 
